@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+    <form action="/test" method="post">
+        <div class='tab1'>
+            <div class="form-group">
+                <label>Số Thiết Bị</label>
+                <input type="text" class="form-control" name="device" value="<%=sothietbi%>">
+            </div>
+            <div class="form-group">
+                <label>Timer</label>
+                <input type="text" class="form-control" name="timer" value="<%=timer%>">
+            </div>
+            <div class="form-group">
+                <label>Event</label>
+                <input type="text" class="form-control" name="timer" value="<%=event%>">
+            </div>
+            <div>
+                <textarea cols="20" rows="<%=sothietbi+1%>"><%=imeilist%></textarea>
+            </div>
+        </div>
+    </form>
+    <form action="/test" method="get">
+        <button type="submit" class="btn btn-success">Back</button>
+    </form>
+</div>
+</body>
