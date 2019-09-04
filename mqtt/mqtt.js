@@ -1,5 +1,5 @@
 var mqtt = require('mqtt')
-var client = mqtt.connect('mqtt://test.mosquitto.org')
+var client = mqtt.connect('mqtt://fs14.ddns.net:1884')
 
 
 // client.on('connect', () => {

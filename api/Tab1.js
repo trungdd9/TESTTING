@@ -2,7 +2,6 @@ const express = require("express")
 const router = express.Router()
 const fs = require('fs')
 const client = require("../mqtt/mqtt")
-const path = require("path")
 
 router.get("/", (req, res) => {
     res.render("index")
@@ -27,7 +26,6 @@ router.post("/", (req, res, next) => {
     })
 })
 router.get("/result", (req, res) => {
-    var dem = 0;
     var codewarning = [201, 202, 203, 206, 208, 209, 212, 213, 214, 215, 219, 220, 221, 223, 227, 228, 229]
     fs.readFile('public/info.json', 'utf8', function (err, data) {
         if (err) throw err;
@@ -36,16 +34,13 @@ router.get("/result", (req, res) => {
         } else {
             var strin = ""
             var result = JSON.parse(data)
-            demsothietbi = result.imei.length;
             console.log(result.event)
             switch (result.event) {
                 case "ALARM":
                     setInterval(() => {
                     for (var i = 0; i < result.imei.length; i++) {
-                        // console.log(demsothietbi)
-                        client.publish(`/${result.event}`, `{ "id": "${result.imei[i]}", "code":${getRndInteger(101, 109)},"info":${JSON.stringify(create_info_901())}}`)
-                        dem += 1;
-                        console.log("1")
+                        client.publish(`/${result.event}`, `{ "id": "${result.imei[i]}", "code":${getRndInteger(101, 109)}}`)
+                        client.publish(`/Response`, `{ "id": "${result.imei[i]}", "code":901,"info":${JSON.stringify(create_info_901())}}`)
                     }
 
                 }, result.timer * 1000)
@@ -53,10 +48,9 @@ router.get("/result", (req, res) => {
              case "WARNING":
                 setInterval(() => {
                     for (var i = 0; i < result.imei.length; i++) {
-                        // console.log(demsothietbi)
                         client.publish(`/${result.event}`, `{ "id": "${result.imei[i]}", "code":${codewarning[getRndInteger(0, 16)]},"info":${JSON.stringify(create_info_901())}}`)
-                        dem += 1;
-                        console.log("2")
+                        client.publish(`/Response`, `{ "id": "${result.imei[i]}", "code":901,"info":${JSON.stringify(create_info_901())}}`)
+
                     }
 
                 }, result.timer * 1000)
